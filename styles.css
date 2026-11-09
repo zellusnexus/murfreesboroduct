@@ -88,6 +88,7 @@ img { max-width: 100%; }
   border: 1px solid #d8cfe3; border-radius: 8px; background: #fbf9fd;
 }
 .quote-card input:focus, .quote-card select:focus, .quote-card textarea:focus { outline: 2px solid var(--purple); border-color: var(--purple); }
+.jotform-embed iframe { width: 100% !important; min-width: 100%; border: 0; }
 
 /* Trust strip */
 .trust { background: var(--orange); color: var(--white); }
