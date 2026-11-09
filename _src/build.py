@@ -462,13 +462,36 @@ def out_file(path):
     return ROOT / path.strip("/") / "index.html"
 
 
+def relativize(page_html, path):
+    """Rewrite root-absolute href/src ("/about/") to paths relative to the page,
+    so the site works from any folder or subpath (file://, GitHub Pages
+    project sites, previews), not only at a domain root. Absolute URLs used for
+    canonical/OG/schema are untouched. The 404 page can be served at any URL,
+    so it gets absolute site URLs instead."""
+    if path.endswith(".html"):
+        if path == "/404.html":
+            return re.sub(r'((?:href|src)=")/(?!/)', r"\1" + SITE + "/", page_html)
+        depth = path.count("/") - 1
+    else:
+        depth = len([seg for seg in path.split("/") if seg])
+    prefix = "../" * depth
+
+    def fix(m):
+        target = m.group(2)[1:]
+        if target.endswith("/") or target == "":
+            target += "index.html"
+        return f'{m.group(1)}{prefix}{target}'
+
+    return re.sub(r'((?:href|src)=")(/(?!/)[^"#]*)', fix, page_html)
+
+
 def main():
     entries = []
     for src in sorted(PAGES.rglob("*.html")):
         meta, body = parse(src)
         dest = out_file(meta["path"])
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(render(meta, body))
+        dest.write_text(relativize(render(meta, body), meta["path"]))
         print(f"built {dest.relative_to(ROOT)}")
         if meta.get("noindex") != "yes":
             entries.append((meta["path"], meta.get("priority", "0.6"), meta.get("changefreq", "monthly")))
