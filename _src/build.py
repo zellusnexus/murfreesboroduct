@@ -49,8 +49,6 @@ SERVICES = [
     ("Residential Air Duct Cleaning", "/air-duct-cleaning/"),
     ("Commercial Duct Cleaning", "/commercial-duct-cleaning/"),
     ("Post-Construction Duct Cleaning", "/post-construction-duct-cleaning/"),
-    ("Duct Sanitizing & Odor Removal", "/duct-sanitizing/"),
-    ("Vent Register & Grille Cleaning", "/vent-register-cleaning/"),
     ("Air Duct Inspection", "/duct-inspection/"),
 ]
 AREAS = [
