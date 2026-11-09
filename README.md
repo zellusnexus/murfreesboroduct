@@ -20,7 +20,7 @@ service-area lists are defined at the top of `_src/build.py`.
 ## Site structure
 
 - `/` – home (Murfreesboro)
-- `/services/` + 6 service pages
+- `/services/` + 4 service pages
 - `/service-areas/` + 9 city pages (`/service-areas/<city>-tn/`)
 - `/air-duct-cleaning-cost/` – pricing guide
 - `/resources/` + 3 homeowner guides
